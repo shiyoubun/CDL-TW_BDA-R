@@ -1,0 +1,24 @@
+- Class: meta
+  Course: CDL-TW BDA-R
+  Lesson: Exercise-2
+  Author: Shawn
+  Type: Standard
+  Organization: CDL
+  Version: 2.4.2
+
+- Class: text
+  Output: Hi, everyone. I'm Waston...just kidding.
+
+- Class: text
+  Output: In Exercise 2, we will learn how to create sequences of numbers in R first.
+  
+- Class: cmd_question
+  Output: The simplest way to create a sequence of numbers in R is by using the `:`
+    operator. Type 1:20 to see how it works.
+  CorrectAnswer: '1:20'
+  AnswerTests: omnitest(correctExpr='1:20')
+  Hint: Type 1:20 with no spaces. Make sure to use a regular colon and NOT a semi-colon.
+
+- Class: text
+  Output: The simplest and most common data structure in R is the vector.
+
