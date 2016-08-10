@@ -1,2 +1,2 @@
 # CDL-TW_BDA-R
-Studygroup purpose
+8/12 Studygroup purpose
