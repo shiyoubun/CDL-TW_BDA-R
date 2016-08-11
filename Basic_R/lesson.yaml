@@ -19,6 +19,545 @@
   AnswerTests: omnitest(correctExpr='1:20')
   Hint: Type 1:20 with no spaces. Make sure to use a regular colon and NOT a semi-colon.
 
+- Class: cmd_question
+  Output: That gave us every integer between (and including) 1 and 20. We could also
+    use it to create a sequence of real numbers. For example, try pi:10.
+  CorrectAnswer: pi:10
+  AnswerTests: omnitest(correctExpr='pi:10')
+  Hint: Enter pi:10 and see what happens. pi is a predefined constant in R that takes
+    on the value 3.1415....
+
+- Class: text
+  Output: The result is a vector of real numbers starting with pi (3.142...) and increasing
+    in increments of 1. The upper limit of 10 is never reached, since the next number
+    in our sequence would be greater than 10.
+
+- Class: cmd_question
+  Output: 'What happens if we do 15:1? Give it a try to find out.'
+  CorrectAnswer: '15:1'
+  AnswerTests: omnitest(correctExpr='15:1')
+  Hint: Type 15:1 and press Enter.
+
+- Class: text
+  Output: It counted backwards in increments of 1! It's unlikely we'd want this behavior,
+    but nonetheless it's good to know how it could happen.
+- Class: text
+  Output: "Remember that if you have questions about a particular R function, you
+    can access its documentation with a question mark followed by the function name:
+    ?function_name_here. However, in the case of an operator like the colon used above,
+    you must enclose the symbol in backticks like this: ?`:`. (NOTE: The backtick
+    (`) key is generally located in the top left corner of a keyboard, above the Tab
+    key. If you don't have a backtick key, you can use regular quotes.)"
+- Class: cmd_question
+  Output: Pull up the documentation for `:` now.
+  CorrectAnswer: ?`:`
+  AnswerTests: any_of_exprs('?`:`', "?':'", '?":"')
+  Hint: "In order to view the documentation for a symbol like the colon operator,
+    you have to use backticks (or quotes). This is so R knows you are not attempting to use the
+    symbol in the command. Here's what it looks like: ?`:`. Don't forget the question
+    mark out front."
+- Class: text
+  Output: Often, we'll desire more control over a sequence we're creating than what
+    the `:` operator gives us. The seq() function serves this purpose.
+- Class: cmd_question
+  Output: The most basic use of seq() does exactly the same thing as the `:` operator.
+    Try seq(1, 20) to see this.
+  CorrectAnswer: seq(1, 20)
+  AnswerTests: omnitest(correctExpr='seq(1, 20)')
+  Hint: Type seq(1, 20) and press Enter. The space after the comma is not required,
+    but is recommended as it tends to make your code appear less cluttered.
+- Class: cmd_question
+  Output: This gives us the same output as 1:20. However, let's say that instead we
+    want a vector of numbers ranging from 0 to 10, incremented by 0.5. seq(0, 10,
+    by=0.5) does just that. Try it out.
+  CorrectAnswer: seq(0, 10, by=0.5)
+  AnswerTests: omnitest(correctExpr='seq(0, 10, by=0.5)')
+  Hint: You are still using the seq() function here, but this time with an extra argument
+    that tells R you want to increment your sequence by 0.5. Try seq(0, 10, by=0.5).
+- Class: cmd_question
+  Output: Or maybe we don't care what the increment is and we just want a sequence
+    of 30 numbers between 5 and 10. seq(5, 10, length=30) does the trick. Give it
+    a shot now and store the result in a new variable called my_seq.
+  CorrectAnswer: my_seq <- seq(5, 10, length=30)
+  AnswerTests: omnitest(correctExpr='my_seq <- seq(5, 10, length=30)')
+  Hint: 'You''re using the same function here, but changing its arguments for different
+    results. Be sure to store the result in a new variable called my_seq, like this:
+    my_seq <- seq(5, 10, length=30).'
+- Class: cmd_question
+  Output: To confirm that my_seq has length 30, we can use the length() function.
+    Try it now.
+  CorrectAnswer: length(my_seq)
+  AnswerTests: omnitest(correctExpr='length(my_seq)')
+  Hint: Use length(my_seq) to view the length of the my_seq variable.
+- Class: text
+  Output: Let's pretend we don't know the length of my_seq, but we want to generate
+    a sequence of integers from 1 to N, where N represents the length of the my_seq
+    vector. In other words, we want a new vector (1, 2, 3, ...) that is the same length
+    as my_seq.
+- Class: cmd_question
+  Output: 'There are several ways we could do this. One possibility is to combine
+    the `:` operator and the length() function like this: 1:length(my_seq). Give that
+    a try.'
+  CorrectAnswer: 1:length(my_seq)
+  AnswerTests: omnitest(correctExpr='1:length(my_seq)')
+  Hint: Try 1:length(my_seq), without assigning the result to a new variable.
+- Class: cmd_question
+  Output: Another option is to use seq(along.with = my_seq). Give that a try.
+  CorrectAnswer: seq(along.with = my_seq)
+  AnswerTests: omnitest(correctExpr='seq(along.with = my_seq)')
+  Hint: Type seq(along.with = my_seq). Notice we're using the same seq() function, but
+    with a different argument called `along.with`. This tells R that you want a sequence
+    'along with' the sequence my_seq. Remember you can type ?seq if you have questions
+    about the seq() function.
+- Class: cmd_question
+  Output: However, as is the case with many common tasks, R has a separate built-in
+    function for this purpose called seq_along(). Type seq_along(my_seq) to see it
+    in action.
+  CorrectAnswer: seq_along(my_seq)
+  AnswerTests: omnitest(correctExpr='seq_along(my_seq)')
+  Hint: The seq_along() function is a variation of the seq() function. Try seq_along(my_seq)
+    to get the same result yet another way.
+- Class: text
+  Output: There are often several approaches to solving the same problem, particularly
+    in R. Simple approaches that involve less typing are generally best. It's also
+    important for your code to be readable, so that you and others can figure out
+    what's going on without too much hassle.
+- Class: text
+  Output: If R has a built-in function for a particular task, it's likely that function
+    is highly optimized for that purpose and is your best option. As you become a
+    more advanced R programmer, you'll design your own functions to perform tasks
+    when there are no better options. We'll explore writing your own functions in
+    future lessons.
+- Class: text
+  Output: One more function related to creating sequences of numbers is rep(), which
+    stands for 'replicate'. Let's look at a few uses.
+- Class: cmd_question
+  Output: If we're interested in creating a vector that contains 40 zeros, we can
+    use rep(0, times = 40). Try it out.
+  CorrectAnswer: rep(0, times = 40)
+  AnswerTests: omnitest(correctExpr='rep(0, times = 40)')
+  Hint: Type rep(0, times = 40) to make a vector containing 40 zeros.
+- Class: cmd_question
+  Output: If instead we want our vector to contain 10 repetitions of the vector (0,
+    1, 2), we can do rep(c(0, 1, 2), times = 10). Go ahead.
+  CorrectAnswer: rep(c(0, 1, 2), times = 10)
+  AnswerTests: omnitest(correctExpr='rep(c(0, 1, 2), times = 10)')
+  Hint: Try rep(c(0, 1, 2), times = 10) for a different variation on the same theme.
+    Be sure to use the c() function to tell R that the numbers 0, 1, and 2 make up
+    a vector.
+- Class: cmd_question
+  Output: Finally, let's say that rather than repeating the vector (0, 1, 2) over
+    and over again, we want our vector to contain 10 zeros, then 10 ones, then 10
+    twos. We can do this with the `each` argument. Try rep(c(0, 1, 2), each = 10).
+  CorrectAnswer: rep(c(0, 1, 2), each = 10)
+  AnswerTests: omnitest(correctExpr='rep(c(0, 1, 2), each = 10)')
+  Hint: Type rep(c(0, 1, 2), each = 10) to see how the `each` argument to the rep()
+    function alters its behavior slightly.
+    
 - Class: text
   Output: The simplest and most common data structure in R is the vector.
+
+- Class: text
+  Output: 'Vectors come in two different flavors: atomic vectors and lists. An atomic
+    vector contains exactly one data type, whereas a list may contain multiple data
+    types. We''ll explore atomic vectors further before we get to lists.'
+
+- Class: text
+  Output: In previous lessons, we dealt entirely with numeric vectors, which are one
+    type of atomic vector. Other types of atomic vectors include logical, character,
+    integer, and complex. In this lesson, we'll take a closer look at logical and
+    character vectors.
+- Class: text
+  Output: Logical vectors can contain the values TRUE, FALSE, and NA (for 'not available').
+    These values are generated as the result of logical 'conditions'. Let's experiment
+    with some simple conditions.
+
+- Class: cmd_question
+  Output: First, create a numeric vector num_vect that contains the values 0.5, 55,
+    -10, and 6.
+  CorrectAnswer: num_vect <- c(0.5, 55, -10, 6)
+  AnswerTests: omnitest(correctExpr='num_vect <- c(0.5, 55, -10, 6)')
+  Hint: Recall that the c() function is used for creating a vector. If you forget
+    how to use it, use ?c to access the help file. Don't forget to assign the result
+    to a new variable called num_vect.
+- Class: cmd_question
+  Output: Now, create a variable called tf that gets the result of num_vect < 1, which
+    is read as 'num_vect is less than 1'.
+  CorrectAnswer: tf <- num_vect < 1
+  AnswerTests: omnitest(correctExpr='tf <- num_vect < 1')
+  Hint: Use tf <- num_vect < 1 to assign the result of num_vect < 1 to a variable
+    called tf.
+
+- Class: mult_question
+  Output: What do you think tf will look like?
+  CorrectAnswer: a vector of 4 logical values
+  AnswerChoices: a vector of 4 logical values; a single logical value
+  AnswerTests: omnitest(correctVal='a vector of 4 logical values')
+  Hint: Remember our lesson on vector arithmetic? The theme was that R performs many
+    operations on an element-by-element basis. We called these 'vectorized' operations.
+
+- Class: cmd_question
+  Output: Print the contents of tf now.
+  CorrectAnswer: tf
+  AnswerTests: omnitest(correctExpr='tf')
+  Hint: Just type tf and press Enter to view the its value.
+
+- Class: text
+  Output: The statement num_vect < 1 is a condition and tf tells us whether each corresponding
+    element of our numeric vector num_vect satisfies this condition.
+
+- Class: text
+  Output: The first element of num_vect is 0.5, which is less than 1 and therefore
+    the statement 0.5 < 1 is TRUE. The second element of num_vect is 55, which is
+    greater than 1, so the statement 55 < 1 is FALSE. The same logic applies for the
+    third and fourth elements.
+
+- Class: cmd_question
+  Output: Let's try another. Type num_vect >= 6 without assigning the result to a
+    new variable.
+  CorrectAnswer: num_vect >= 6
+  AnswerTests: omnitest(correctExpr='num_vect >= 6')
+  Hint: Don't create a new variable on this one. We just want to see the result of
+    num_vect >= 6. Make sure there is no space between the `>` and `=` symbols. Think
+    of them as one symbol representing 'greater than or equal to'.
+
+- Class: text
+  Output: This time, we are asking whether each individual element of num_vect is
+    greater than OR equal to 6. Since only 55 and 6 are greater than or equal to 6,
+    the second and fourth elements of the result are TRUE and the first and third elements
+    are FALSE.
+
+- Class: text
+  Output: The `<` and `>=` symbols in these examples are called 'logical operators'.
+    Other logical operators include `>`, `<=`, `==` for exact equality, and `!=` for
+    inequality.
+
+- Class: text
+  Output: If we have two logical expressions, A and B, we can ask whether at least
+    one is TRUE with A | B (logical 'or' a.k.a. 'union') or whether they are both
+    TRUE with A & B (logical 'and' a.k.a. 'intersection'). Lastly, !A is the negation
+    of A and is TRUE when A is FALSE and vice versa.
+
+- Class: text
+  Output: It's a good idea to spend some time playing around with various combinations
+    of these logical operators until you get comfortable with their use. We'll do
+    a few examples here to get you started.
+- Class: text
+  Output: Try your best to predict the result of each of the following statements.
+    You can use pencil and paper to work them out if it's helpful. If you get stuck,
+    just guess and you've got a 50% chance of getting the right answer!
+- Class: mult_question
+  Output: (3 > 5) & (4 == 4)
+  CorrectAnswer: 'FALSE'
+  AnswerChoices: TRUE; FALSE
+  AnswerTests: omnitest(correctVal='FALSE')
+  Hint: Break this problem down into 2 pieces. The `&` in the middle states that BOTH
+    pieces are TRUE. Your job is to figure out if that is an accurate statement. If
+    so, the entire condition is TRUE. If not, it's FALSE.
+
+- Class: mult_question
+  Output: (TRUE == TRUE) | (TRUE == FALSE)
+  CorrectAnswer: 'TRUE'
+  AnswerChoices: TRUE; FALSE
+  AnswerTests: omnitest(correctVal='TRUE')
+  Hint: Break this problem down into 2 pieces. The `|` in the middle states that AT
+    LEAST ONE of the pieces is TRUE. Your job is to figure out if that is an accurate
+    statement. If so, the entire condition is TRUE. If not, it's FALSE.
+- Class: mult_question
+  Output: ((111 >= 111) | !(TRUE)) & ((4 + 1) == 5)
+  CorrectAnswer: 'TRUE'
+  AnswerChoices: TRUE; FALSE
+  AnswerTests: omnitest(correctVal='TRUE')
+  Hint: This is a tricky one. Remember that the `!` symbol negates whatever comes
+    after it. There's also an 'order of operations' going on here. Conditions that
+    are enclosed within parentheses should be evaluated first. Then, work your way
+    outwards.
+
+- Class: text
+  Output: Don't worry if you found these to be tricky. They're supposed to be. Working
+    with logical statements in R takes practice, but your efforts will be rewarded
+    in future lessons (e.g. subsetting and control structures).
+
+- Class: text
+  Output: Character vectors are also very common in R. Double quotes are used to distinguish
+    character objects, as in the following example.
+
+- Class: cmd_question
+  Output: 'Create a character vector that contains the following words: "My", "name",
+    "is". Remember to enclose each word in its own set of double quotes, so that
+    R knows they are character strings. Store the vector in a variable called my_char.'
+  CorrectAnswer: my_char <- c("My", "name", "is")
+  AnswerTests: omnitest(correctExpr='my_char <- c("My", "name", "is")')
+  Hint: Type my_char <- c("My", "name", "is") to create a new variable called my_char
+    that contains a character vector of length 3. Make sure that the commas separating
+    the words are OUTSIDE of the double quotes, or else R thinks the commas are part
+    of the words.
+
+- Class: cmd_question
+  Output: Print the contents of my_char to see what it looks like.
+  CorrectAnswer: my_char
+  AnswerTests: omnitest(correctExpr='my_char')
+  Hint: Type my_char to view its contents.
+
+- Class: text
+  Output: Right now, my_char is a character vector of length 3. Let's say we want
+    to join the elements of my_char together into one continuous character string
+    (i.e. a character vector of length 1). We can do this using the paste() function.
+
+- Class: cmd_question
+  Output: Type paste(my_char, collapse = " ") now. Make sure there's a space between
+    the double quotes in the `collapse` argument. You'll see why in a second.
+  CorrectAnswer: paste(my_char, collapse = " ")
+  AnswerTests: omnitest(correctExpr='paste(my_char, collapse = " ")')
+  Hint: Use paste(my_char, collapse = " ") to collapse the words in the vector so
+    they almost form a sentence. There should be a single space between the double
+    quotes in the `collapse` argument so that there are single spaces separating the
+    words.
+- Class: text
+  Output: The `collapse` argument to the paste() function tells R that when we join
+    together the elements of the my_char character vector, we'd like to separate them
+    with single spaces.
+
+- Class: text
+  Output: It seems that we're missing something.... Ah, yes! Your name!
+
+- Class: cmd_question
+  Output: 'To add (or ''concatenate'') your name to the end of my_char, use the c()
+    function like this: c(my_char, "your_name_here"). Place your name in double quotes
+    where I''ve put "your_name_here". Try it now, storing the result in a new variable
+    called my_name.'
+  CorrectAnswer: my_name <- c(my_char, "Swirl")
+  AnswerTests: var_is_a("character", "my_name"); expr_uses_func("c"); expr_creates_var("my_name");
+    val_has_length(4)
+  Hint: Tack your name on to the end of the my_char vector using the c() function.  Be
+    sure to assign the result to a new variable called my_name. If your name was "Swirl",
+    you would type my_name <- c(my_char, "Swirl").
+
+- Class: cmd_question
+  Output: Take a look at the contents of my_name.
+  CorrectAnswer: my_name
+  AnswerTests: omnitest(correctExpr='my_name')
+  Hint: Type my_name and press Enter to view its contents.
+
+- Class: cmd_question
+  Output: Now, use the paste() function once more to join the words in my_name together
+    into a single character string. Don't forget to say collapse = " "!
+  CorrectAnswer: paste(my_name, collapse = " ")
+  AnswerTests: omnitest(correctExpr='paste(my_name, collapse = " ")')
+  Hint: Use paste(my_name, collapse = " ") to join all four words together, separated
+    by single spaces.
+- Class: text
+  Output: In this example, we used the paste() function to collapse the elements of
+    a single character vector. paste() can also be used to join the elements of multiple
+    character vectors.
+- Class: cmd_question
+  Output: In the simplest case, we can join two character vectors that are each of
+    length 1 (i.e. join two words). Try paste("Hello", "world!", sep = " "), where
+    the `sep` argument tells R that we want to separate the joined elements with a
+    single space.
+  CorrectAnswer: paste("Hello", "world!", sep = " ")
+  AnswerTests: omnitest(correctExpr='paste("Hello", "world!", sep = " ")')
+  Hint: Enter paste("Hello", "world!", sep = " ") to join the two words "Hello" and
+    "world", separated by a single space. There should be a single space between the
+    double quotes in the `sep` argument to the paste() function.
+- Class: cmd_question
+  Output: For a slightly more complicated example, we can join two vectors, each of
+    length 3. Use paste() to join the integer vector 1:3 with the character vector c("X", "Y", "Z"). This time, use sep
+    = "" to leave no space between the joined elements.
+  CorrectAnswer: paste(1:3, c("X", "Y", "Z"), sep = "")
+  AnswerTests: any_of_exprs('paste(1:3, c("X", "Y", "Z"), sep = "")', 'paste(c(1:3), c("X", "Y", "Z"), sep = "")')
+  Hint: Use paste(1:3, c("X", "Y", "Z"), sep = "") to see what happens when we join
+    two vectors of equal length using paste().
+- Class: text
+  Output: 'What do you think will happen if our vectors are of different length? (Hint:
+    we talked about this in a previous lesson.)'
+- Class: cmd_question
+  Output: Vector recycling! Try paste(LETTERS, 1:4, sep = "-"), where LETTERS is a
+    predefined variable in R containing a character vector of all 26 letters in the
+    English alphabet.
+  CorrectAnswer: paste(LETTERS, 1:4, sep = "-")
+  AnswerTests: omnitest(correctExpr='paste(LETTERS, 1:4, sep = "-")')
+  Hint: Type paste(LETTERS, 1:4, sep = "-") to see how R recycles the vector 1:4 to  match
+    the length of LETTERS. Notice we are using `-` as our separator this time instead
+    of a single space.
+- Class: text
+  Output: Since the character vector LETTERS is longer than the numeric vector 1:4,
+    R simply recycles, or repeats, 1:4 until it matches the length of LETTERS.
+- Class: text
+  Output: Also worth noting is that the numeric vector 1:4 gets 'coerced' into a character
+    vector by the paste() function.
+- Class: text
+  Output: We'll discuss coercion in another lesson, but all it really means is that the
+    numbers 1, 2, 3, and 4 in the output above are no longer numbers to R, but rather
+    characters "1", "2", "3", and "4".
+- Class: text
+  Output: In this lesson, we'll cover matrices and data frames. Both represent 'rectangular' data types, meaning that they are used to store tabular data, with rows and columns.
+
+- Class: text
+  Output: The main difference, as you'll see, is that matrices can only contain a single class of data, while data frames can consist of many different classes of data.
+
+- Class: cmd_question
+  Output: Let's create a vector containing the numbers 1 through 20 using the `:` operator. Store the result in a variable called my_vector.
+  CorrectAnswer: my_vector <- 1:20
+  AnswerTests: omnitest(correctExpr='my_vector <- 1:20')
+  Hint: You learned about the `:` operator in the lesson on sequences. If you wanted to create a vector containing the numbers 1, 2, and 3 (in that order), you could use either c(1, 2, 3) or 1:3. In this case, we want the numbers 1 through 20 stored in a variable called my_vector. Also, remember that you don't need the c() function when using `:`.
+
+- Class: cmd_question
+  Output: View the contents of the vector you just created.
+  CorrectAnswer: my_vector
+  AnswerTests: omnitest(correctExpr='my_vector')
+  Hint: Type my_vector to view its contents.
+
+- Class: cmd_question
+  Output: The dim() function tells us the 'dimensions' of an object. What happens if we do dim(my_vector)? Give it a try.
+  CorrectAnswer: dim(my_vector)
+  AnswerTests: omnitest(correctExpr='dim(my_vector)')
+  Hint: Just type dim(my_vector) to see what happens.
+
+- Class: cmd_question
+  Output: Clearly, that's not very helpful! Since my_vector is a vector, it doesn't have a `dim` attribute (so it's just NULL), but we can find its length using the length() function. Try that now.
+  CorrectAnswer: length(my_vector)
+  AnswerTests: omnitest(correctExpr='length(my_vector)')
+  Hint: Type length(my_vector) to view the length of the vector you just created.
+
+- Class: cmd_question
+  Output: Ah! That's what we wanted. But, what happens if we give my_vector a `dim` attribute? Let's give it a try. Type dim(my_vector) <- c(4, 5).
+  CorrectAnswer: dim(my_vector) <- c(4, 5)
+  AnswerTests: omnitest(correctExpr='dim(my_vector) <- c(4, 5)')
+  Hint: Type dim(my_vector) <- c(4, 5) to give my_vector a `dim` attribute.
+
+- Class: text
+  Output: It's okay if that last command seemed a little strange to you. It should! The dim() function allows you to get OR set the `dim` attribute for an R object. In this case, we assigned the value c(4, 5) to the `dim` attribute of my_vector.
+
+- Class: cmd_question
+  Output: Use dim(my_vector) to confirm that we've set the `dim` attribute correctly.
+  CorrectAnswer: dim(my_vector)
+  AnswerTests: omnitest(correctExpr='dim(my_vector)')
+  Hint: Just type dim(my_vector) to make sure the `dim` attribute has been set.
+
+- Class: cmd_question
+  Output: Another way to see this is by calling the attributes() function on my_vector. Try it now.
+  CorrectAnswer: attributes(my_vector)
+  AnswerTests: omnitest(correctExpr='attributes(my_vector)')
+  Hint: The command attributes(my_vector) will show you all of the attributes for the my_vector object.
+
+- Class: text
+  Output: Just like in math class, when dealing with a 2-dimensional object (think rectangular table), the first number is the number of rows and the second is the number of columns. Therefore, we just gave my_vector 4 rows and 5 columns.
+
+- Class: cmd_question
+  Output: But, wait! That doesn't sound like a vector any more. Well, it's not. Now it's a matrix. View the contents of my_vector now to see what it looks like.
+  CorrectAnswer: my_vector
+  AnswerTests: omnitest(correctExpr='my_vector')
+  Hint: Type my_vector to view its contents.
+
+- Class: cmd_question
+  Output: Now, let's confirm it's actually a matrix by using the class() function. Type class(my_vector) to see what I mean.
+  CorrectAnswer: class(my_vector)
+  AnswerTests: omnitest(correctExpr='class(my_vector)')
+  Hint: Type class(my_vector) to view the class of my_vector.
+
+- Class: cmd_question
+  Output: Sure enough, my_vector is now a matrix. We should store it in a new variable that helps us remember what it is. Store the value of my_vector in a new variable called my_matrix.
+  CorrectAnswer: my_matrix <- my_vector
+  AnswerTests: omnitest(correctExpr='my_matrix <- my_vector')
+  Hint: Since we can't just change the name of our my_vector variable, we'll assign its value to a new variable with my_matrix <- my_vector.
+
+- Class: text
+  Output: The example that we've used so far was meant to illustrate the point that a matrix is simply an atomic vector with a dimension attribute. A more direct method of creating the same matrix uses the matrix() function.
+
+- Class: cmd_question
+  Output: Bring up the help file for the matrix() function now using the `?` function.
+  CorrectAnswer: ?matrix
+  AnswerTests: omnitest(correctExpr='?matrix')
+  Hint: The command ?matrix will do the trick.
+
+- Class: cmd_question
+  Output: Now, look at the documentation for the matrix function and see if you can figure out how to create a matrix containing the same numbers (1-20) and dimensions (4 rows, 5 columns) by calling the matrix() function. Store the result in a variable called my_matrix2.
+  CorrectAnswer: my_matrix2 <- matrix(1:20, nrow=4, ncol=5)
+  AnswerTests: calculates_same_value('matrix(1:20, nrow=4, ncol=5)'); expr_creates_var('my_matrix2')
+  Hint: Call the matrix() function with three arguments -- 1:20, the number of rows, and the number of columns. Be sure to specify arguments by their proper names and store the result in my_matrix2 (not in my_matrix).
+
+- Class: cmd_question
+  Output: Finally, let's confirm that my_matrix and my_matrix2 are actually identical. The identical() function will tell us if its first two arguments are the same. Try it out.
+  CorrectAnswer: identical(my_matrix, my_matrix2)
+  AnswerTests: any_of_exprs('identical(my_matrix, my_matrix2)', 'identical(my_matrix2, my_matrix)')
+  Hint: If you're not sure about this one, then checkout the documentation for identical() using the `?` function.
+
+- Class: text
+  Output: Now, imagine that the numbers in our table represent some measurements from a clinical experiment, where each row represents one patient and each column represents one variable for which measurements were taken.
+
+- Class: text
+  Output: We may want to label the rows, so that we know which numbers belong to each patient in the experiment. One way to do this is to add a column to the matrix, which contains the names of all four people.
+
+- Class: cmd_question
+  Output: Let's start by creating a character vector containing the names of our patients -- Bill, Gina, Kelly, and Sean. Remember that double quotes tell R that something is a character string. Store the result in a variable called patients.
+  CorrectAnswer: patients <- c("Bill", "Gina", "Kelly", "Sean")
+  AnswerTests: omnitest(correctExpr='patients <- c("Bill", "Gina", "Kelly", "Sean")')
+  Hint: Make sure to capitalize the first letter of each name and to store the result in a variable called patients. Also, don't get the order of the patients mixed up! That would be a disaster!
+
+- Class: cmd_question
+  Output: Now we'll use the cbind() function to 'combine columns'. Don't worry about storing the result in a new variable. Just call cbind() with two arguments -- the patients vector and my_matrix.
+  CorrectAnswer: cbind(patients, my_matrix)
+  AnswerTests: omnitest(correctExpr='cbind(patients, my_matrix)')
+  Hint: Type cbind(patients, my_matrix) to add the names of our patients to the matrix of numbers.
+
+- Class: text
+  Output: Something is fishy about our result! It appears that combining the character vector with our matrix of numbers caused everything to be enclosed in double quotes. This means we're left with a matrix of character strings, which is no good.
+
+- Class: text
+  Output: If you remember back to the beginning of this lesson, I told you that matrices can only contain ONE class of data. Therefore, when we tried to combine a character vector with a numeric matrix, R was forced to 'coerce' the numbers to characters, hence the double quotes.
+
+- Class: text
+  Output: This is called 'implicit coercion', because we didn't ask for it. It just happened. But why didn't R just convert the names of our patients to numbers? I'll let you ponder that question on your own.
+
+- Class: cmd_question
+  Output: So, we're still left with the question of how to include the names of our patients in the table without destroying the integrity of our numeric data. Try the following -- my_data <- data.frame(patients, my_matrix)
+  CorrectAnswer: my_data <- data.frame(patients, my_matrix)
+  AnswerTests: omnitest(correctExpr='my_data <- data.frame(patients, my_matrix)')
+  Hint: Type my_data <- data.frame(patients, my_matrix), so we can explore what happens.
+
+- Class: cmd_question
+  Output: Now view the contents of my_data to see what we've come up with.
+  CorrectAnswer: my_data
+  AnswerTests: omnitest(correctExpr='my_data')
+  Hint: Type my_data to view its contents.
+
+- Class: text
+  Output: It looks like the data.frame() function allowed us to store our character vector of names right alongside our matrix of numbers. That's exactly what we were hoping for! 
+
+- Class: text
+  Output: Behind the scenes, the data.frame() function takes any number of arguments and returns a single object of class `data.frame` that is composed of the original objects.
+
+- Class: cmd_question
+  Output: Let's confirm this by calling the class() function on our newly created data frame.
+  CorrectAnswer: class(my_data)
+  AnswerTests: omnitest(correctExpr='class(my_data)')
+  Hint: The class function takes one argument -- the object of which you want to determine the class.
+
+- Class: text
+  Output: It's also possible to assign names to the individual rows and columns of a data frame, which presents another possible way of determining which row of values in our table belongs to each patient.
+
+- Class: text
+  Output: However, since we've already solved that problem, let's solve a different problem by assigning names to the columns of our data frame so that we know what type of measurement each column represents.
+
+- Class: cmd_question
+  Output: Since we have six columns (including patient names), we'll need to first create a vector containing one element for each column. Create a character vector called cnames that contains the following values (in order) -- "patient", "age", "weight", "bp", "rating", "test".
+  CorrectAnswer: cnames <- c("patient", "age", "weight", "bp", "rating", "test")
+  AnswerTests: omnitest(correctExpr='cnames <- c("patient", "age", "weight", "bp", "rating", "test")')
+  Hint: Make sure all of the names are lowercase, surrounded by double quotes, and separated with commas. Don't forget to use the c() function.
+
+- Class: cmd_question
+  Output: Now, use the colnames() function to set the `colnames` attribute for our data frame. This is similar to the way we used the dim() function earlier in this lesson.
+  CorrectAnswer: colnames(my_data) <- cnames
+  AnswerTests: omnitest(correctExpr='colnames(my_data) <- cnames')
+  Hint: Try colnames(my_data) <- cnames.
+
+- Class: cmd_question
+  Output: Let's see if that got the job done. Print the contents of my_data.
+  CorrectAnswer: my_data
+  AnswerTests: omnitest(correctExpr='my_data')
+  Hint: Print the contents of my_data to the console.
+
+- Class: text
+  Output: In this lesson, you learned the basics of working with two very important and common data structures -- matrices and data frames. There's much more to learn and we'll be covering more advanced topics, particularly with respect to data frames, in future lessons.
 
