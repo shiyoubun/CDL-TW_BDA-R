@@ -1,9 +1,9 @@
 - Class: meta
   Course: CDL-TW BDA-R
   Lesson: Exercise-3
-  Author: Shawn
+  Author: swirl github repository
   Type: Standard
-  Organization: CDL
+  Organization: swirl
   Version: 2.4.2
 
 - Class: text
@@ -83,7 +83,7 @@
 
 - Class: text
   Output: Note that there are other ways to call the plot command, i.e., using the "formula" interface. For example, we get a similar plot to the above with plot(dist ~ speed, cars). However, we will wait till later in the lesson before using the formula interface.
-  
+
 - Class: cmd_question
   Output: Use plot() command to show dist on the x-axis and speed on the y-axis from the cars data frame. This is the opposite of what we did above.
   CorrectAnswer: plot(x = cars$dist, y = cars$speed)

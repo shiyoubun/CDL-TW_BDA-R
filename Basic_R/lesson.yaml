@@ -1,9 +1,9 @@
 - Class: meta
   Course: CDL-TW BDA-R
   Lesson: Exercise-2
-  Author: Shawn
+  Author: swirl github repository
   Type: Standard
-  Organization: CDL
+  Organization: swirl
   Version: 2.4.2
 
 - Class: text
